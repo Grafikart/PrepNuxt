@@ -23,9 +23,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
  * @ORM\Table(name="symfony_demo_post")
  * @ApiResource(
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"},
  *     normalizationContext={"groups"={"Post"}},
  *     itemOperations={
- *         "get"={"normalization_context"={"groups"={"PosItem"}}
+ *         "get"={"normalization_context"={"groups"={"PostItem"}}
  *     }}
  * )
  */
@@ -39,7 +41,7 @@ class Post
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"Post", "PosItem"})
+     * @Groups({"Post", "PostItem"})
      */
     private $id;
 
@@ -47,7 +49,7 @@ class Post
      * @var string
      *
      * @ORM\Column(type="string")
-     * @Groups({"Post", "PosItem"})
+     * @Groups({"Post", "PostItem"})
      * @Assert\NotBlank
      */
     private $title;
@@ -56,7 +58,7 @@ class Post
      * @var string
      *
      * @ORM\Column(type="string")
-     * @Groups({"Post", "PosItem"})
+     * @Groups({"Post", "PostItem"})
      */
     private $slug;
 
@@ -75,14 +77,14 @@ class Post
      *
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="post.blank_content")
-     * @Groups({"PosItem"})
+     * @Groups({"PostItem"})
      * @Assert\Length(min=10, minMessage="post.too_short_content")
      */
     private $content;
 
     /**
      * @var \DateTime
-     * @Groups({"Post", "PosItem"})
+     * @Groups({"Post", "PostItem"})
      * @ORM\Column(type="datetime")
      */
     private $publishedAt;
@@ -91,7 +93,7 @@ class Post
      * @var User
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"Post", "PosItem"})
+     * @Groups({"Post", "PostItem"})
      */
     private $author;
 
@@ -116,6 +118,7 @@ class Post
      * @ORM\JoinTable(name="symfony_demo_post_tag")
      * @ORM\OrderBy({"name": "ASC"})
      * @Assert\Count(max="4", maxMessage="post.too_many_tags")
+     * @Groups({"PostItem"})
      */
     private $tags;
 

@@ -11,12 +11,17 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="symfony_demo_tag")
- *
+ * @ApiResource(
+ *     collectionOperations={},
+ *     itemOperations={"get"}
+ * )
  * Defines the properties of the Tag entity to represent the post tags.
  *
  * See https://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class
@@ -38,6 +43,7 @@ class Tag implements \JsonSerializable
      * @var string
      *
      * @ORM\Column(type="string", unique=true)
+     * @Groups({"PostItem"})
      */
     private $name;
 

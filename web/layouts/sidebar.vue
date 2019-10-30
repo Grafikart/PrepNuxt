@@ -20,7 +20,18 @@
       </div>
     </nav>
     <div class="container">
-      <nuxt />
+
+      <div class="row">
+        <div class="cold-md-8">
+          <nuxt />
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <h2>Sidebar</h2>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>

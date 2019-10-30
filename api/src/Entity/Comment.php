@@ -13,13 +13,24 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="symfony_demo_comment")
- * @ApiResource()
- *
+ * @ApiResource(
+ *     subresourceOperations={
+ *     "api_posts_comments_get_subresource"={
+ *         "method"="GET",
+ *         "normalization_context"={"groups"={"Comments"}}
+ *     }
+ *     },
+ *     collectionOperations={},
+ *     itemOperations={
+ *      "get"={"normalization_context"={"groups"={"Comment"}}}
+ *     }
+ * )
  * Defines the properties of the Comment entity to represent the blog comments.
  * See https://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class
  *
@@ -59,6 +70,7 @@ class Comment
      *     max=10000,
      *     maxMessage="comment.too_long"
      * )
+     * @Groups({"Comments"})
      */
     private $content;
 
@@ -66,6 +78,7 @@ class Comment
      * @var \DateTime
      *
      * @ORM\Column(type="datetime")
+     * @Groups({"Comments"})
      */
     private $publishedAt;
 
@@ -74,6 +87,7 @@ class Comment
      *
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"Comments"})
      */
     private $author;
 
