@@ -6,10 +6,6 @@ security:
         App\Entity\User: 'auto'
 
     providers:
-        # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
-        # In this example, users are stored via Doctrine in the database
-        # To see the users at src/App/DataFixtures/ORM/LoadFixtures.php
-        # To load users from somewhere else: https://symfony.com/doc/current/security/custom_provider.html
         database_users:
             entity: { class: App\Entity\User, property: username }
 
@@ -18,7 +14,22 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-
+        login:
+            pattern:  ^/api/login
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path:               /api/login
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+        api:
+            pattern: ^/api/
+            stateless: true
+            anonymous: true
+            provider: database_users
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
         main:
             # this firewall applies to all URLs
             pattern: ^/
