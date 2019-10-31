@@ -5,6 +5,9 @@
       <div class="mb-3">
         Par {{p.author.fullName}} -
         <div class="badge badge-secondary mr-1" v-for="tag in p.tags">#{{tag.name}}</div>
+        <template v-if="$auth.$state.loggedIn">
+          <nuxt-link :to="'/blog/' + p.id + '/edit'" class="btn btn-primary btn-sm">Editer</nuxt-link>
+        </template>
       </div>
       <div v-html="p.content"></div>
     </article>
@@ -14,7 +17,6 @@
 </template>
 
 <script>
-  import axios from '~/plugins/axios'
   import Comments from '~/components/Comments'
   export default {
     components: {Comments},
@@ -26,12 +28,12 @@
         title: this.p.title,
       }
     },
-    async asyncData ({params}) {
+    async asyncData ({params, $axios}) {
       let p = params.slug.split('-')
       const id = p.pop()
       const slug = p.join('-')
       try {
-        let r = await axios.get('/posts/' + id)
+        let r = await $axios.get('/posts/' + id)
         return {
           p: r.data
         }

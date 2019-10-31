@@ -10,9 +10,13 @@ homepage:
     defaults:
         template: default/homepage.html.twig
         _locale: '%locale%'
-authentication_token:
-    path: /authentication_token
-    methods: ['POST']
-
 api_login_check:
     path: /api/login
+
+api_me:
+    path: '/api/me'
+    methods: ['GET']
+    defaults:
+        _controller: '\App\Controller\Api\AuthController::me'
+        _api_resource_class: 'App\Entity\User'
+        _api_collection_operation_name: 'collName_api_me'

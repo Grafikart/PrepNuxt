@@ -1,6 +1,4 @@
-import axios from 'axios'
-
-export default axios.create({
-  baseURL: process.env.baseUrl,
-  headers: {'Accept': 'application/json','Content-type': 'application/json'}
-})
+export default function ({ $axios }) {
+  $axios.defaults.headers.common['Content-Type'] = 'application/json'
+  $axios.defaults.headers.common['Accept'] = 'application/json'
+}

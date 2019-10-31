@@ -10,8 +10,6 @@
 </template>
 
 <script>
-  import axios from '../plugins/axios'
-
   export default {
     data () {
       return {
@@ -22,7 +20,7 @@
       post: Number
     },
     async mounted () {
-      const r = await axios.get(`posts/${this.post}/comments`)
+      const r = await this.$axios.get(`posts/${this.post}/comments`)
       this.comments = r.data
     }
   }

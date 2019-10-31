@@ -9,7 +9,6 @@ security:
         database_users:
             entity: { class: App\Entity\User, property: username }
 
-    # https://symfony.com/doc/current/security.html#initial-security-yml-setup-authentication
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

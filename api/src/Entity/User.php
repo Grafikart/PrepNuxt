@@ -21,7 +21,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="symfony_demo_user")
  * @ApiResource(
- *     collectionOperations={},
+ *     collectionOperations={
+ *      "me"={"route_name"="api_me", "description"="Retourne l'utilisateur actuellement connecté"}
+ *     },
  *     itemOperations={"get"}
  * )
  *

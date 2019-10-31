@@ -11,16 +11,15 @@
 </template>
 
 <script>
-  import axios from '~/plugins/axios'
   export default {
     head () {
       return {
         title: 'Blog',
       }
     },
-    async asyncData () {
+    async asyncData ({$axios}) {
       try {
-        let r = await axios.get('/posts')
+        let r = await $axios.get('/posts')
         return {
           posts: r.data
         }

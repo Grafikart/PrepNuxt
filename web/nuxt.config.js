@@ -1,11 +1,7 @@
 export default {
   mode: 'universal',
-  // or
   layoutTransition: 'layout',
   pageTransition: 'fade',
-  /*
-  ** Headers of the page
-  */
   head: {
     title: process.env.npm_package_name || '',
     meta: [
@@ -18,51 +14,40 @@ export default {
       {rel: 'stylesheet', href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'}
     ]
   },
-  env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:8000/api/'
-  },
-  /*
-  ** Customize the progress-bar color
-  */
   loading: {color: '#fff'},
-  /*
-  ** Global CSS
-  */
   css: [
     '~/css/global.css'
   ],
-  /*
-  ** Plugins to load before mounting the App
-  */
   plugins: [
     '~/plugins/timeago',
     '~/plugins/axios'
   ],
-  /*
-  ** Nuxt.js dev-modules
-  */
   buildModules: [],
-  /*
-  ** Nuxt.js modules
-  */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/auth'
   ],
-  /*
-  ** Axios module configuration
-  ** See https://axios.nuxtjs.org/options
-  */
-  axios: {},
-  /*
-  ** Build configuration
-  */
+  axios: {
+    port: 8000,
+    prefix: '/api'
+  },
   build: {
-    /*
-    ** You can extend webpack config here
-    */
     extend (config, ctx) {
+    }
+  },
+  auth: {
+    strategies: {
+      redirect: {
+        callback: '/callback'
+      },
+      local: {
+        endpoints: {
+          login: {url: 'login', method: 'post', propertyName: 'token'},
+          logout: {url: 'logout', method: 'post'},
+          user: {url: 'me', method: 'get', propertyName: ''}
+        }
+      }
     }
   }
 }

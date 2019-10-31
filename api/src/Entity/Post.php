@@ -24,9 +24,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="symfony_demo_post")
  * @ApiResource(
  *     collectionOperations={"get"},
- *     itemOperations={"get"},
  *     normalizationContext={"groups"={"Post"}},
  *     itemOperations={
+ *     "put"={"security"="is_granted('ROLE_ADMIN')"},
  *         "get"={"normalization_context"={"groups"={"PostItem"}}
  *     }}
  * )
