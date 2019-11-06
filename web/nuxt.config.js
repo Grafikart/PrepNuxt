@@ -20,7 +20,8 @@ export default {
   ],
   plugins: [
     '~/plugins/timeago',
-    '~/plugins/axios'
+    '~/plugins/axios',
+    { src: '~/plugins/editor.js', mode: 'client' }
   ],
   buildModules: [],
   modules: [
