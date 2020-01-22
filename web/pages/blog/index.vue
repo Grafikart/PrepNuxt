@@ -12,19 +12,20 @@
 
 <script>
   export default {
+    data () {
+      return {
+        posts: []
+      }
+    },
     head () {
       return {
         title: 'Blog',
       }
     },
     async asyncData ({$axios}) {
-      try {
-        let r = await $axios.get('/posts')
-        return {
-          posts: r.data
-        }
-      } catch (e) {
-        console.log(e)
+      let r = await $axios.get('/posts')
+      return {
+        posts: r.data
       }
     }
   }
